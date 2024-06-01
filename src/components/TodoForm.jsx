@@ -1,14 +1,17 @@
 import { useState } from 'react';
+import { useDispatch } from "react-redux";
 
+import { addTodo } from '../store/todosSlice';
 
 const TodoForm = () => {
   const [newTodo, setNewTodo] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newTodo) return;
 
-    //
+    dispatch(addTodo(newTodo));
     setNewTodo('');
   }
 

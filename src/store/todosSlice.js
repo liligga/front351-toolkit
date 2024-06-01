@@ -9,7 +9,21 @@ const todosSlice = createSlice({
     reducers: {
         // dispatch(addTodo("Learn Redux"))
         addTodo: (state, action) => {
-            state.items.unshift(action.payload)
-        }    
+            // return {
+            //     ...state,
+            //     items: [action.payload, ...state.items]
+            // }
+            console.log("Action Payload: ", action.payload)
+            const newTodo = {
+                id: Date.now(),
+                name: action.payload,
+                completed: false
+            }
+            console.log(newTodo)
+            state.items.unshift(newTodo)
+        }
     }
 })
+
+export const todosReducer = todosSlice.reducer
+export const { addTodo } = todosSlice.actions

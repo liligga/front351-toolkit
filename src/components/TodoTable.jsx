@@ -1,20 +1,12 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { DeleteIcon } from "./UI/icons";
 
-const todoItems = [
-  { id: 1, name: "Item 1" },
-  { id: 2, name: "Item 2" },
-  { id: 3, name: "Item 3" },
-];
-
 const TodoTable = () => {
-  const [items, setItems] = useState(todoItems);
-
+  const items = useSelector((state) => state.todos.items);
   const handleDeleteClick = (id) => {
     console.log(id);
   };
-
   const handleCheckClick = (id) => {
     console.log(id);
   };
