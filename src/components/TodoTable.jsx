@@ -1,12 +1,16 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { DeleteIcon } from "./UI/icons";
+import { removeTodo } from "../store/todosSlice";
 
 const TodoTable = () => {
   const items = useSelector((state) => state.todos.items);
+  const dispatch = useDispatch();
   const handleDeleteClick = (id) => {
     console.log(id);
+    dispatch(removeTodo(id))
   };
+
   const handleCheckClick = (id) => {
     console.log(id);
   };

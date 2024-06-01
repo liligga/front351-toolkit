@@ -21,9 +21,14 @@ const todosSlice = createSlice({
             }
             console.log(newTodo)
             state.items.unshift(newTodo)
+        },
+        // dispatch(removeTodo(2))
+        removeTodo: (state, action) => {
+            console.log("~", action.payload)
+            state.items = state.items.filter((item) => item.id !== action.payload)
         }
     }
 })
 
 export const todosReducer = todosSlice.reducer
-export const { addTodo } = todosSlice.actions
+export const { addTodo, removeTodo } = todosSlice.actions
