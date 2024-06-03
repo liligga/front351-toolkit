@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { DeleteIcon } from "./UI/icons";
-import { removeTodo, fetchTodos } from "../store/todosSlice";
+import { removeTodo, fetchTodos, deleteTodo } from "../store/todosSlice";
 
 const TodoTable = () => {
   const { items, loading, error } = useSelector((state) => state.todos);
@@ -14,7 +14,8 @@ const TodoTable = () => {
 
   const handleDeleteClick = (id) => {
     console.log(id);
-    dispatch(removeTodo(id))
+    // dispatch(removeTodo(id))
+    dispatch(deleteTodo(id))
   };
 
   const handleCheckClick = (id) => {
@@ -22,11 +23,11 @@ const TodoTable = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Загружаю...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Ошибка: {error} </div>
   }
 
   return (

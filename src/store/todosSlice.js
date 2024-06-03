@@ -5,10 +5,20 @@ import axios from "axios";
 // redux-thunk
 // dispatch(fetchTodos())
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
-    console.log("Fetching...");
     const response = await axios.get("https://dummyjson.com/todos");
     return response.data;
 });
+
+// dispatch(deleteTodo(1))
+export const deleteTodo = createAsyncThunk(
+    "todos/deleteTodo",
+    async (todoId) => {
+        const response = await axios.delete(`https://dummyjson.com/todos/${todoId}`)
+        return response.data;
+    }
+)
+
+// dispatch(createTodo({userId: 1, todo: "Learn Redux", completed: false}))
 
 const todosSlice = createSlice({
     name: "todos",
@@ -49,6 +59,7 @@ const todosSlice = createSlice({
             })
             .addCase(fetchTodos.rejected, (state, action) => {
                 state.loading = false;
+                console.log(action.error)
                 state.error = action.error.message;
             })
             .addCase(fetchTodos.fulfilled, (state, action) => {
@@ -56,10 +67,18 @@ const todosSlice = createSlice({
                 state.loading = false;
                 state.error = null;
                 state.items = action.payload.todos;
-                console.log(state.items);
-            });
+            })
+            .addCase(deleteTodo.fulfilled, (state, action) => {
+                console.log(action.payload)
+                const found = state.items.findIndex(el => el.id === action.payload.id);
+                if (found > -1) {
+                    state.items.splice(found, 1)
+                }
+            }) 
     },
 });
 
 export const todosReducer = todosSlice.reducer;
 export const { addTodo, removeTodo } = todosSlice.actions;
+
+// Redux Toolkit Query
